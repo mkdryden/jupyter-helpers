@@ -1,5 +1,5 @@
 # coding: utf-8
-from Queue import Queue, Empty
+from queue import Queue, Empty
 from collections import OrderedDict
 from subprocess import Popen, PIPE
 from threading import Thread
@@ -75,7 +75,7 @@ class Session(object):
     @property
     def args(self):
         args = ()
-        for k, v in self.kwargs.iteritems():
+        for k, v in self.kwargs.items():
             cli_k = k.replace('_', '-')
             if v is None:
                 args += ('--%s' % cli_k, )
@@ -252,8 +252,8 @@ class Session(object):
     def __del__(self):
         try:
             self.stop()
-        except (Exception, ), exception:
-            print exception
+        except (Exception, ) as exception:
+            print(exception)
 
 
 class SessionManager(object):
@@ -403,7 +403,7 @@ class SessionManager(object):
         return session
 
     def stop(self):
-        for session in (self.sessions.values()):
+        for session in (list(self.sessions.values())):
             session.stop()
 
     def __del__(self):
